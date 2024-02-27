@@ -20,7 +20,7 @@ const typeDefs = gql`
   }
 `;
 
-const endpoint = 'https://sindhu-webappcosmos.documents.azure.com:443/';
+const endpoint = 'https://sindhu-webappcosmos.documents.azure.com';
 const key = '2TYrzHK1RQ77pMd5UhVqsDqxzHwYzbnFAWBEh3AwkSDIktitRfqbIUej5tNXBcFGrfr2M2qSSz3xACDbHvMo3Q==';
 const client = new CosmosClient({ endpoint, key });
 const databaseId = 'MyTestPersonDatabase';
