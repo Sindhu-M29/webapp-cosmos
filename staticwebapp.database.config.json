@@ -24,8 +24,7 @@
       "authentication": {
         "provider": "StaticWebApps"
       }
-    }
-  },
+    },
   "entities": {
     "Person": {
       "source": "MyTestPersonContainer",
