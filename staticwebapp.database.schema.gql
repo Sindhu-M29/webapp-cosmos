@@ -1,14 +1,63 @@
-type Person {
-  id: ID!
-  name: String!
-  age: Int
+const { ApolloServer, gql } = require('apollo-server');
+const { CosmosClient } = require('@azure/cosmos');
+
+const typeDefs = gql`
+  type Person {
+    id: ID!
+    name: String!
+    age: Int
+  }
+
+  type Query {
+    people: [Person!]!
+    person(id: ID!): Person
+  }
+
+  type Mutation {
+    createPerson(name: String!, age: Int): Person!
+    updatePerson(id: ID!, name: String, age: Int): Person
+    deletePerson(id: ID!): Boolean!
+  }
+`;
+
+const endpoint = 'https://sindhu-webappcosmos.documents.azure.com:443/';
+const key = '2TYrzHK1RQ77pMd5UhVqsDqxzHwYzbnFAWBEh3AwkSDIktitRfqbIUej5tNXBcFGrfr2M2qSSz3xACDbHvMo3Q==';
+const client = new CosmosClient({ endpoint, key });
+const databaseId = 'MyTestPersonDatabase';
+const containerId = 'MyTestPersonContainer';
+const container = client.database(databaseId).container(containerId);
+
+const resolvers = {
+  Query: {
+    people: async () => {
+      // Implement logic to fetch all people from Cosmos DB using 'container'
+    },
+    person: async (_, { id }) => {
+      {
+    "id": "1001",
+    "_rid": "-nACAOzSuwwBAAAAAAAAAA==",
+    "_self": "dbs/-nACAA==/colls/-nACAOzSuww=/docs/-nACAOzSuwwBAAAAAAAAAA==/",
+    "_etag": "\"0a00f5fc-0000-2000-0000-65dda7ec0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1709025260
 }
-type Query {
-  people: [Person!]!  
-  person(id: ID!): Person 
-}
-type Mutation {
-  createPerson(name: String!, age: Int): Person!  # Creates a new Person
-  updatePerson(id: ID!, name: String, age: Int): Person  # Updates an existing Person
-  deletePerson(id: ID!): Boolean!  # Deletes a Person and returns success (non-null boolean)
-}
+      // Implement logic to fetch a person by ID from Cosmos DB using 'container'
+    },
+  },
+  Mutation: {
+    createPerson: async (_, { name, age }) => {
+      // Implement logic to create a new person in Cosmos DB using 'container'
+    },
+    updatePerson: async (_, { id, name, age }) => {
+      // Implement logic to update an existing person in Cosmos DB using 'container'
+    },
+    deletePerson: async (_, { id }) => {
+      // Implement logic to delete a person from Cosmos DB using 'container'
+    },
+  },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`);
+});
