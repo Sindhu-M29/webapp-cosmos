@@ -8,6 +8,7 @@
 <body>
   <h1>Data API</h1>
   <button id="list">List People</button>
+  <br>s
   <div>
     <button id="list" onclick="list()">List</button>
     <button id="get" onclick="get()">Get</button>
@@ -17,6 +18,7 @@
 </div>
   <script>
     const listButton = document.getElementById('list');
+    const outputDiv = document.getElementById('output');
     const updateButton = document.getElementById('update');
     const deleteButton = document.getElementById('delete');
 
@@ -38,6 +40,12 @@
 
         const data = await response.json();
         console.log(data);
+        outputDiv.innerHTML = '';
+        data.data.items.forEach(item => {
+            const itemElement = document.createElement('p');
+            itemElement.textContent = `ID: ${item.id}, Name: ${item.name}, Description: ${item.description}`;
+            outputDiv.appendChild(itemElement);
+        });
     });
 
     updateButton.addEventListener('click', async () => {
