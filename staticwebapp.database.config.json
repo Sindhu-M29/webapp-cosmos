@@ -15,16 +15,16 @@
       "path": "/graphql"
     }
   },
-   "host": {
-      "mode": "production",
-      "cors": {
-        "origins": ["http://localhost:4280"],
-        "allow-credentials": false
-      },
-      "authentication": {
-        "provider": "StaticWebApps"
-      }
+  "host": {
+    "mode": "production",
+    "cors": {
+      "origins": ["const url = 'http://localhost:4280/graphql';"],
+      "allow-credentials": false
     },
+    "authentication": {
+      "provider": "StaticWebApps"
+    }
+  },
   "entities": {
     "Person": {
       "source": "MyTestPersonContainer",
