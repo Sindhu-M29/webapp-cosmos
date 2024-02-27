@@ -1,39 +1,52 @@
-{
-  "$schema": "staticwebapp.database.schema.gql",
-  "data-source": {
-    "database-type": "cosmosdb_nosql",
-    "options": {
-      "database": "MyTestPersonDatabase",
-      "schema": "staticwebapp.database.schema.gql"
-    },
-    "connection-string": "@env('DATABASE_CONNECTION_STRING')"
-  },
-  "runtime": {
-    "graphql": {
-      "allow-introspection": true,
-      "enabled": true,
-      "path": "/graphql"
-    }
-  },
-  "host": {
-    "mode": "production",
-    "cors": {
-      "origins": ["const url = 'http://localhost:4280/graphql';"],
-      "allow-credentials": false
-    },
-    "authentication": {
-      "provider": "StaticWebApps"
-    }
-  },
-  "entities": {
-    "Person": {
-      "source": "MyTestPersonContainer",
-      "permissions": [
-        {
-          "actions": ["*"],
-          "role": "anonymous"
-        }
-      ]
-    }
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data API Example</title>
+</head>
+<body>
+  <h1>Data API</h1>
+  <button id="list">List People</button>
+  <div>
+    <button id="list" onclick="list()">List</button>
+    <button id="get" onclick="get()">Get</button>
+    <button id="update" onclick="update()">Update</button>
+    <button id="create" onclick="create()">Create</button>
+    <button id="delete" onclick="del()">Delete</button>
+</div>
+  <script>
+    const listButton = document.getElementById('list');
+    const updateButton = document.getElementById('update');
+    const deleteButton = document.getElementById('delete');
+
+    listButton.addEventListener('click', async () => {
+        const query = `query {
+            people {
+                id
+                name
+            }
+        }`;
+
+        const url = 'http://localhost:4280';
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query })
+        });
+
+        const data = await response.json();
+        console.log(data);
+    });
+
+    updateButton.addEventListener('click', async () => {
+        // Implement update functionality here
+    });
+
+    deleteButton.addEventListener('click', async () => {
+        // Implement delete functionality here
+    });
+</script>
+</body>
+</html>
