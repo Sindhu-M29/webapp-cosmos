@@ -8,37 +8,65 @@
 <body>
   <h1>Data API</h1>
   <button id="list">List People</button>
+  <br>
   <div>
     <button id="list" onclick="list()">List</button>
-    <button id="get" onclick="get()">Get</button>
+    <div id="output"></div>
     <button id="update" onclick="update()">Update</button>
     <button id="create" onclick="create()">Create</button>
     <button id="delete" onclick="del()">Delete</button>
 </div>
   <script>
-    const button = document.getElementById('list');
+    const listButton = document.getElementById('list');
+    const outputDiv = document.getElementById('output');
+    const updateButton = document.getElementById('update');
+    const deleteButton = document.getElementById('delete');
 
-    button.addEventListener('click', async () => {
-      // Replace with the actual GraphQL query
-      const query = `query {
-        people {
-          id
-          name
+    listButton.addEventListener('click', async () => {
+        const url = 'https://sindhu-webappcosmos.documents.azure.com';
+
+        const query = `
+        query {
+            people {
+                id
+                name
+                description
+            }
         }
-      }`;
+    `;
+    
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query })
+        });
 
-      // Replace with actual API endpoint based on your configuration
-      const url = 'http://localhost:4280/graphql';
+        const data = await response.json();
+        console.log(data);
+        outputDiv.innerHTML = '';
+        if (data.data && data.data.people) {
+            data.data.people.forEach(person => {
+                const personElement = document.createElement('p');
+                personElement.textContent = `ID: ${person.id}, Name: ${person.name}, Description: ${person.description}`;
+                outputDiv.appendChild(personElement);
+            });
+        } else {
+            const errorElement = document.createElement('p');
+            errorElement.textContent = 'Error fetching data';
+            outputDiv.appendChild(errorElement);
+        }
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
-      });
+        });
+   
 
-      const data = await response.json();
-      console.log(data);
+    updateButton.addEventListener('click', async () => {
+        // Implement update functionality here
     });
-  </script>
+
+    deleteButton.addEventListener('click', async () => {
+        // Implement delete functionality here
+    });
+</script>
 </body>
 </html>
