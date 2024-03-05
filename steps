@@ -1,0 +1,44 @@
+Installed node.js in the local machine  and copied the installed node.js in the documents directory in gitbash used cd documents command and checked the version of node.js enabled the npm package in the node.js file.
+
+In the local gitbas(right click on the documents/webapp-cosmos–gitbash option)Used the command to install swa npm install -g @azure/static-web-apps-cli
+
+Cloned the git:
+ git clone https://github.com/Sindhu-M29/webapp-cosmos.git
+
+$ git init
+Initialized empty Git repository in C:/Users/Sindhu.Ilango/Documents/.git/
+
+sindhu.ilango@PWSLTP115 MINGW64 ~/documents (master)
+$ git pull -b main
+
+sindhu.ilango@PWSLTP115 MINGW64 ~/documents (master)
+$ git checkout -b main
+Switched to a new branch 'main'
+
+sindhu.ilango@PWSLTP115 MINGW64 ~/documents (main)
+$ git pull origin main https://github.com/Sindhu-M29/webapp-cosmos.git
+fatal: invalid refspec 'https://github.com/Sindhu-M29/webapp-cosmos.git'
+
+'
+
+sindhu.ilango@PWSLTP115 MINGW64 ~/documents (main)
+$ swa db init --database-type cosmosdb_nosql --cosmosdb_nosql-database MyTestPer
+
+Started the swa with the command:
+$ swa start ./webapp-cosmos --data-api-location swa-db-connections
+
+
+
+
+
+
+
+
+
+
+export DATABASE_CONNECTION_STRING='AccountEndpoint=<https://sindhu-webappcosmos.documents.azure.com:443/>;AccountKey=2TYrzHK1RQ77pMd5UhVqsDqxzHwYzbnFAWBEh3AwkSDIktitRfqbIUej5tNXBcFGrfr2M2qSSz3xACDbHvMo3Q==
+;Database=sindhu-webappcosmos;'
+
+
+To run in the browser
+swa start ./webapp-cosmos --port 4280
